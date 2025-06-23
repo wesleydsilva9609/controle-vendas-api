@@ -1,5 +1,6 @@
 package br.com.controledevendas.estoque.controller;
 
+import br.com.controledevendas.estoque.dto.DadosAtualizarProduto;
 import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
 import br.com.controledevendas.estoque.dto.DadosListagemProduto;
 import br.com.controledevendas.estoque.entity.Produto;
@@ -39,6 +40,12 @@ public class ProdutoController {
     @Transactional
     public ResponseEntity excluirProduto(@PathVariable Long id){
         return produtoService.deletarPorId(id);
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizarProduto(@RequestBody DadosAtualizarProduto dadosAtualizarProdutoproduto){
+        return produtoService.atualizarProduto(dadosAtualizarProdutoproduto);
     }
 
 }

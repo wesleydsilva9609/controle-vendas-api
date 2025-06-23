@@ -1,6 +1,7 @@
 package br.com.controledevendas.estoque.entity;
 
 
+import br.com.controledevendas.estoque.dto.DadosAtualizarProduto;
 import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,5 +27,14 @@ public class Produto {
         this.id = dadosCadastroProduto.id();
         this.nome = dadosCadastroProduto.nome();
         this.quantidadeEstoque = dadosCadastroProduto.quantidade();
+    }
+
+    public void atualizar(DadosAtualizarProduto dadosAtualizarProdutoproduto) {
+        if(dadosAtualizarProdutoproduto.nome() != null){
+            this.nome = dadosAtualizarProdutoproduto.nome();
+        }
+        if(dadosAtualizarProdutoproduto.quantidade() != 0){
+            this.quantidadeEstoque = dadosAtualizarProdutoproduto.quantidade();
+        }
     }
 }

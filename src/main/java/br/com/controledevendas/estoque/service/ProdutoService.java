@@ -1,5 +1,6 @@
 package br.com.controledevendas.estoque.service;
 
+import br.com.controledevendas.estoque.dto.DadosAtualizarProduto;
 import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
 import br.com.controledevendas.estoque.dto.DadosDetalhamentoProduto;
 import br.com.controledevendas.estoque.dto.DadosListagemProduto;
@@ -47,5 +48,11 @@ public class ProdutoService {
     public ResponseEntity deletarPorId(Long id) {
         produtoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    public ResponseEntity atualizarProduto(DadosAtualizarProduto dadosAtualizarProdutoproduto) {
+        var produto = produtoRepository.getReferenceById(dadosAtualizarProdutoproduto.id());
+        produto.atualizar(dadosAtualizarProdutoproduto);
+        return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
     }
 }
