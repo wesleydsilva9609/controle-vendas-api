@@ -39,4 +39,8 @@ public class ProdutoService {
     }
 
 
+    public ResponseEntity buscarPorID(Long id){
+        var produto = produtoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
+    }
 }

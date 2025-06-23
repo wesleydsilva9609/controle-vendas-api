@@ -30,4 +30,9 @@ public class ProdutoController {
         return produtoService.listar(pageable);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity buscarProdutoPorId(@PathVariable Long id){
+        return produtoService.buscarPorID(id);
+    }
+
 }
