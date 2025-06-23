@@ -35,4 +35,10 @@ public class ProdutoController {
         return produtoService.buscarPorID(id);
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluirProduto(@PathVariable Long id){
+        return produtoService.deletarPorId(id);
+    }
+
 }

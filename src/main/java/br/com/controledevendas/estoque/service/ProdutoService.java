@@ -43,4 +43,9 @@ public class ProdutoService {
         var produto = produtoRepository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
     }
+
+    public ResponseEntity deletarPorId(Long id) {
+        produtoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
