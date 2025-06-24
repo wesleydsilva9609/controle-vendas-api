@@ -1,5 +1,6 @@
 package br.com.controledevendas.estoque.entity;
 
+import br.com.controledevendas.estoque.dto.DadosCadastroVenda;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,4 +24,11 @@ public class Venda {
     private Produto produto;
     private int quantidadeVendida;
     private LocalDate dataVenda;
+
+    public Venda(DadosCadastroVenda dadosCadastroVenda) {
+        this.id = dadosCadastroVenda.id();
+        this.produto = getProduto();
+        this.quantidadeVendida = dadosCadastroVenda.quantidade();
+        this.dataVenda = dadosCadastroVenda.dataVenda();
+    }
 }

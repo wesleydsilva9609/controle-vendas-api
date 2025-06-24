@@ -45,4 +45,8 @@ public class Produto {
             this.preco = dadosAtualizarProdutoproduto.preco().setScale(2, RoundingMode.HALF_UP);
         }
     }
+
+    public void estoque(int quantidade) {
+        quantidadeEstoque -= quantidade;
+    }
 }
