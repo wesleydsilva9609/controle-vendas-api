@@ -5,9 +5,8 @@ import br.com.controledevendas.estoque.entity.Venda;
 
 import java.time.LocalDate;
 
-public record DadosDetalhamentoVenda(Long id, Long idproduto, int quantidade, LocalDate dataVenda) {
+public record DadosDetalhamentoVenda(Long id, String nomeproduto, int quantidade, LocalDate dataVenda) {
     public DadosDetalhamentoVenda(Venda venda) {
-        this(venda.getId(), venda.getProduto().getId(), venda.getQuantidadeVendida(), venda.getDataVenda());
-
+        this(venda.getId(), venda.getProduto().getNome(), venda.getQuantidadeVendida(), venda.getDataVenda());
     }
 }
