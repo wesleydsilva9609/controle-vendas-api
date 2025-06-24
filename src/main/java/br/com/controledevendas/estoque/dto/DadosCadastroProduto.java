@@ -1,4 +1,6 @@
 package br.com.controledevendas.estoque.dto;
 
-public record DadosCadastroProduto(Long id, String nome, int quantidade) {
+import java.math.BigDecimal;
+
+public record DadosCadastroProduto(Long id, String nome, BigDecimal preco, int quantidade) {
 }
