@@ -22,13 +22,19 @@ public class Venda {
     private Long id;
     @ManyToOne
     private Produto produto;
-    private int quantidadeVendida;
+    private Integer quantidadeVendida;
     private LocalDate dataVenda;
 
     public Venda(DadosCadastroVenda dadosCadastroVenda) {
-        this.id = dadosCadastroVenda.id();
         this.produto = getProduto();
         this.quantidadeVendida = dadosCadastroVenda.quantidade();
         this.dataVenda = dadosCadastroVenda.dataVenda();
+    }
+
+
+    public Venda(Produto produto, Integer quantidade, LocalDate localDate) {
+        this.produto = produto;
+        this.quantidadeVendida = quantidade;
+        this.dataVenda = localDate;
     }
 }

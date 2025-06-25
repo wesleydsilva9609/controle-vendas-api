@@ -25,13 +25,17 @@ public class Produto {
     private String nome;
     private BigDecimal preco;
     private int quantidadeEstoque;
+    private Integer quantidadeVendida;
+
+
 
 
     public Produto(DadosCadastroProduto dadosCadastroProduto) {
-        this.id = dadosCadastroProduto.id();
         this.nome = dadosCadastroProduto.nome();
         this.preco = dadosCadastroProduto.preco();
         this.quantidadeEstoque = dadosCadastroProduto.quantidade();
+        this.quantidadeVendida = 0;
+
     }
 
     public void atualizar(DadosAtualizarProduto dadosAtualizarProdutoproduto) {
@@ -48,5 +52,8 @@ public class Produto {
 
     public void estoque(int quantidade) {
         quantidadeEstoque -= quantidade;
+        quantidadeVendida += quantidade;
     }
+
+
 }

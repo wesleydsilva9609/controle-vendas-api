@@ -3,18 +3,19 @@ package br.com.controledevendas.estoque.service;
 import br.com.controledevendas.estoque.dto.DadosCadastroVenda;
 import br.com.controledevendas.estoque.dto.DadosDetalhamentoVenda;
 import br.com.controledevendas.estoque.dto.DadosListagemVendas;
+import br.com.controledevendas.estoque.dto.ListarProdutosVendidos;
 import br.com.controledevendas.estoque.entity.Venda;
 import br.com.controledevendas.estoque.repository.ProdutoRepository;
 import br.com.controledevendas.estoque.repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +27,8 @@ public class VendaService {
 
     public ResponseEntity cadastrar(UriComponentsBuilder uriComponentsBuilder, DadosCadastroVenda dadosCadastroVenda) {
         var produto = produtoRepository.getReferenceById(dadosCadastroVenda.idproduto());
-        var venda = new Venda(dadosCadastroVenda.id(), produto, dadosCadastroVenda.quantidade(), dadosCadastroVenda.dataVenda());
+        var venda = new Venda(produto, dadosCadastroVenda.quantidade(), dadosCadastroVenda.dataVenda());
+        //atualiza o estoque e a quantidade do intem vendido
         produto.estoque(dadosCadastroVenda.quantidade());
         var uri = uriComponentsBuilder.path("/vendas/{id}").buildAndExpand(venda.getId()).toUri();
         vendaRepository.save(venda);
@@ -55,5 +57,11 @@ public class VendaService {
 
     public List<DadosListagemVendas> conversor(List<Venda> vendaList){
         return vendaList.stream().map(DadosListagemVendas::new).collect(Collectors.toList());
+    }
+
+    public ResponseEntity<Page<ListarProdutosVendidos>> buscarTodasAsVendas(@PageableDefault(size = 10) Pageable pageable) {
+        var produto = produtoRepository.findAll(pageable).map(ListarProdutosVendidos::new);
+        return ResponseEntity.ok(produto);
+
     }
 }
