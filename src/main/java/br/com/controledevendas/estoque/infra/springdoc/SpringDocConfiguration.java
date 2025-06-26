@@ -13,7 +13,7 @@ public class SpringDocConfiguration {
     public OpenAPI customOpenAPI() {
         return new OpenAPI().info(new Info()
                 .title("Controle De Estoque Api").version("1.0")
-                .description("api criada para manter o  controle de estoque")
+                .description("API de Controle de Vendas com Estoque")
                 .contact(new Contact().name("Wesley").email("wesleydsilva96@gmail.com")));
     }
 }
