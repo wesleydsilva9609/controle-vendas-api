@@ -6,6 +6,7 @@ import br.com.controledevendas.estoque.dto.DadosListagemProduto;
 import br.com.controledevendas.estoque.entity.Produto;
 import br.com.controledevendas.estoque.service.ProdutoService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ public class ProdutoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrarProduto(UriComponentsBuilder uriComponentsBuilder,@RequestBody DadosCadastroProduto dadosCadastroProduto) {
+    public ResponseEntity cadastrarProduto(UriComponentsBuilder uriComponentsBuilder,@RequestBody @Valid DadosCadastroProduto dadosCadastroProduto) {
         return produtoService.cadastrar(uriComponentsBuilder,dadosCadastroProduto);
     }
 
