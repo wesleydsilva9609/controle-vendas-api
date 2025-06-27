@@ -20,7 +20,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
-                .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).build();
+                .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(rqs -> {
+                    rqs.requestMatchers("/login").permitAll();
+                    rqs.anyRequest().authenticated();
+                }).build();
     }
 
     @Bean
