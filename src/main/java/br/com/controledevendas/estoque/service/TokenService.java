@@ -2,8 +2,10 @@ package br.com.controledevendas.estoque.service;
 
 import br.com.controledevendas.estoque.entity.Usuario;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -23,6 +25,20 @@ public class TokenService {
                     .sign(algorithm);
         } catch (JWTCreationException exception){
             throw new RuntimeException("Erro ao gerar token");
+        }
+    }
+
+    public String getSubjetct(String token){
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("1234");
+            return JWT.require(algorithm)
+                    .withIssuer("auth0")
+                    .build()
+                    .verify(token)
+                    .getSubject();
+        } catch (JWTVerificationException exception){
+            throw new RuntimeException("token Invalido");
         }
     }
 
