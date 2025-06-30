@@ -1,4 +1,6 @@
 package br.com.controledevendas.estoque.dto;
 
-public record DadosLogin(String email, String senha) {
+import jakarta.validation.constraints.NotBlank;
+
+public record DadosLogin(@NotBlank String email,@NotBlank String senha) {
 }

@@ -5,6 +5,7 @@ import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
 import br.com.controledevendas.estoque.dto.DadosListagemProduto;
 import br.com.controledevendas.estoque.entity.Produto;
 import br.com.controledevendas.estoque.service.ProdutoService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/produtos")
+@SecurityRequirement(name = "bearer-key")
 public class ProdutoController {
     @Autowired
     private ProdutoService produtoService;

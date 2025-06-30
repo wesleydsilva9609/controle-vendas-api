@@ -4,6 +4,7 @@ import br.com.controledevendas.estoque.dto.DadosCadastroVenda;
 import br.com.controledevendas.estoque.dto.DadosListagemVendas;
 import br.com.controledevendas.estoque.dto.ListarProdutosVendidos;
 import br.com.controledevendas.estoque.service.VendaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vendas")
+@SecurityRequirement(name = "bearer-key")
 public class VendaController {
     @Autowired
     private VendaService vendaService;

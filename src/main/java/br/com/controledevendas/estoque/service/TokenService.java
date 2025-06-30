@@ -21,7 +21,9 @@ public class TokenService {
             var algorithm = Algorithm.HMAC256("1234");
             return JWT.create().
                     withIssuer("estoque_api")
-                    .withSubject(usuario.getUsername()).withExpiresAt(Dataexpiracao())
+                    .withClaim("role", usuario.getRole())
+                    .withSubject(usuario.getUsername())
+                    .withExpiresAt(Dataexpiracao())
                     .sign(algorithm);
         } catch (JWTCreationException exception){
             throw new RuntimeException("Erro ao gerar token");
@@ -31,9 +33,9 @@ public class TokenService {
     public String getSubjetct(String token){
 
         try {
-            Algorithm algorithm = Algorithm.HMAC256("1234");
+            var algorithm = Algorithm.HMAC256("1234");
             return JWT.require(algorithm)
-                    .withIssuer("auth0")
+                    .withIssuer("estoque_api")
                     .build()
                     .verify(token)
                     .getSubject();

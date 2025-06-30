@@ -1,7 +1,10 @@
 package br.com.controledevendas.estoque.entity;
 
+import br.com.controledevendas.estoque.dto.DadosCadastroUsuario;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,9 +15,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "usuario")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +27,23 @@ public class Usuario implements UserDetails {
     private String senha;
     private String role;
 
+    public Usuario(@Valid DadosCadastroUsuario dadosCadastroUsuario) {
+        this.id = getId();
+        this.email = getEmail();
+        this.senha = getSenha();
+        this.role = getRole();
+    }
+
+    public Usuario(String email, String senhaCriptografada, String role) {
+        this.id = getId();
+        this.email = email;
+        this.senha = senhaCriptografada;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(this.role));
     }
 
     @Override
