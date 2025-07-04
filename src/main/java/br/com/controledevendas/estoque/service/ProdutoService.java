@@ -55,4 +55,19 @@ public class ProdutoService {
         produto.atualizar(dadosAtualizarProdutoproduto);
         return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
     }
+
+
+    public ResponseEntity<List<DadosListagemProduto>> buscarProdutoPorNome(String nome) {
+        if(nome == null || nome.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        var produto = produtoRepository.findByNomeContainingIgnoreCase(nome);
+
+        if(produto.isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(conversor(produto));
+    }
 }

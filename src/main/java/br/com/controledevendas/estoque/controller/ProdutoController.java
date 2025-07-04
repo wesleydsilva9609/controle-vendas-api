@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/produtos")
 @SecurityRequirement(name = "bearer-key")
@@ -49,6 +51,11 @@ public class ProdutoController {
     @Transactional
     public ResponseEntity atualizarProduto(@RequestBody DadosAtualizarProduto dadosAtualizarProdutoproduto){
         return produtoService.atualizarProduto(dadosAtualizarProdutoproduto);
+    }
+
+    @GetMapping(params = "nome")
+   public ResponseEntity<List<DadosListagemProduto>> listarProdutosPorNome(@RequestParam(name = "nome", required = false) String nome){
+        return produtoService.buscarProdutoPorNome(nome);
     }
 
 }
