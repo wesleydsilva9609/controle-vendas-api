@@ -1,8 +1,8 @@
 package br.com.controledevendas.estoque.entity;
 
 
-import br.com.controledevendas.estoque.dto.DadosAtualizarProduto;
-import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosAtualizarProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosCadastroProduto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

@@ -1,12 +1,11 @@
 package br.com.controledevendas.estoque.entity;
 
-import br.com.controledevendas.estoque.dto.DadosCadastroUsuario;
+import br.com.controledevendas.estoque.dto.usuario.DadosCadastroUsuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

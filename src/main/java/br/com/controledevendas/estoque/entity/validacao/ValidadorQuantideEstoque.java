@@ -1,11 +1,9 @@
 package br.com.controledevendas.estoque.entity.validacao;
 
-import br.com.controledevendas.estoque.dto.DadosCadastroVenda;
+import br.com.controledevendas.estoque.dto.vendas.DadosCadastroVenda;
 import br.com.controledevendas.estoque.infra.exceptions.ValidacaoExeception;
 import br.com.controledevendas.estoque.repository.ProdutoRepository;
-import br.com.controledevendas.estoque.repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component

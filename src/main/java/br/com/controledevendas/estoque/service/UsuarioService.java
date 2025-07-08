@@ -1,9 +1,9 @@
 package br.com.controledevendas.estoque.service;
 
-import br.com.controledevendas.estoque.dto.DadosCadastroUsuario;
-import br.com.controledevendas.estoque.dto.DadosDatalhementoUsuario;
-import br.com.controledevendas.estoque.dto.DadosJwt;
-import br.com.controledevendas.estoque.dto.DadosLogin;
+import br.com.controledevendas.estoque.dto.usuario.DadosCadastroUsuario;
+import br.com.controledevendas.estoque.dto.usuario.DadosDatalhementoUsuario;
+import br.com.controledevendas.estoque.dto.usuario.DadosJwt;
+import br.com.controledevendas.estoque.dto.usuario.DadosLogin;
 import br.com.controledevendas.estoque.entity.Usuario;
 import br.com.controledevendas.estoque.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

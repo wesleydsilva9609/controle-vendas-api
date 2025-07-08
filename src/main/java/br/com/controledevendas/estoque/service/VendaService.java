@@ -1,7 +1,6 @@
 package br.com.controledevendas.estoque.service;
 
-import br.com.controledevendas.estoque.dto.*;
-import br.com.controledevendas.estoque.entity.Produto;
+import br.com.controledevendas.estoque.dto.vendas.*;
 import br.com.controledevendas.estoque.entity.Venda;
 import br.com.controledevendas.estoque.entity.validacao.ValidadorDeVendas;
 import br.com.controledevendas.estoque.repository.ProdutoRepository;
@@ -99,5 +98,10 @@ public class VendaService {
 
         return ResponseEntity.created(uri).body(vendaList.stream().map(DadosDetalhamentoVenda::new).toList());
 
+    }
+
+    public ResponseEntity deletarPorId(Long id) {
+        vendaRepository.deleteById(Math.toIntExact(id));
+        return ResponseEntity.noContent().build();
     }
 }

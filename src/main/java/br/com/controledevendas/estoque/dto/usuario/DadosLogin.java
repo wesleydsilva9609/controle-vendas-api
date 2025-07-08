@@ -1,4 +1,4 @@
-package br.com.controledevendas.estoque.dto;
+package br.com.controledevendas.estoque.dto.usuario;
 
 import jakarta.validation.constraints.NotBlank;
 

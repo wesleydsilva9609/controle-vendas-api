@@ -1,9 +1,9 @@
 package br.com.controledevendas.estoque.service;
 
-import br.com.controledevendas.estoque.dto.DadosAtualizarProduto;
-import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
-import br.com.controledevendas.estoque.dto.DadosDetalhamentoProduto;
-import br.com.controledevendas.estoque.dto.DadosListagemProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosAtualizarProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosCadastroProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosDetalhamentoProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosListagemProduto;
 import br.com.controledevendas.estoque.entity.Produto;
 import br.com.controledevendas.estoque.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package br.com.controledevendas.estoque.dto;
+package br.com.controledevendas.estoque.dto.vendas;
 
 import java.time.LocalDate;
 import java.util.List;

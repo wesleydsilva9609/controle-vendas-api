@@ -1,6 +1,5 @@
-package br.com.controledevendas.estoque.dto;
+package br.com.controledevendas.estoque.dto.vendas;
 
-import br.com.controledevendas.estoque.entity.Produto;
 import br.com.controledevendas.estoque.entity.Venda;
 
 import java.time.LocalDate;

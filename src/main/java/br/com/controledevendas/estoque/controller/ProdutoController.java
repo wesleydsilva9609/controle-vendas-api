@@ -1,9 +1,8 @@
 package br.com.controledevendas.estoque.controller;
 
-import br.com.controledevendas.estoque.dto.DadosAtualizarProduto;
-import br.com.controledevendas.estoque.dto.DadosCadastroProduto;
-import br.com.controledevendas.estoque.dto.DadosListagemProduto;
-import br.com.controledevendas.estoque.entity.Produto;
+import br.com.controledevendas.estoque.dto.produto.DadosAtualizarProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosCadastroProduto;
+import br.com.controledevendas.estoque.dto.produto.DadosListagemProduto;
 import br.com.controledevendas.estoque.service.ProdutoService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;

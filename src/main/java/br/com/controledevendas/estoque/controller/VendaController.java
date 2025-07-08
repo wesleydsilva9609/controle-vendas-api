@@ -1,9 +1,9 @@
 package br.com.controledevendas.estoque.controller;
 
-import br.com.controledevendas.estoque.dto.DadosCadastroVenda;
-import br.com.controledevendas.estoque.dto.DadosCadastroVendaCarrinho;
-import br.com.controledevendas.estoque.dto.DadosListagemVendas;
-import br.com.controledevendas.estoque.dto.ListarProdutosVendidos;
+import br.com.controledevendas.estoque.dto.vendas.DadosCadastroVenda;
+import br.com.controledevendas.estoque.dto.vendas.DadosCadastroVendaCarrinho;
+import br.com.controledevendas.estoque.dto.vendas.DadosListagemVendas;
+import br.com.controledevendas.estoque.dto.vendas.ListarProdutosVendidos;
 import br.com.controledevendas.estoque.service.VendaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
@@ -42,6 +42,12 @@ public class VendaController {
     @GetMapping
     public ResponseEntity<Page<DadosListagemVendas>> listar(@PageableDefault(size = 10) Pageable pageable) {
         return vendaService.listarVendas(pageable);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarVendaId(@PathVariable Long id){
+        return vendaService.deletarPorId(id);
     }
 
     @GetMapping("/{ano}/{mes}")
