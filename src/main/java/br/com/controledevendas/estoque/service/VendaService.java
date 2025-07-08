@@ -76,4 +76,28 @@ public class VendaService {
     }
 
 
+    public ResponseEntity cadastrarcarrinho(UriComponentsBuilder uriComponentsBuilder, @Valid DadosCadastroVendaCarrinho dadosCadastroVendaCarrinho){
+        List<Venda> vendaList = new ArrayList<>();
+
+        for (ItensVendaCarrinho itensVendaCarrinho : dadosCadastroVendaCarrinho.itens()){
+            //simula os dados pra poder utilizar o validador
+            DadosCadastroVenda dadossimulados = new DadosCadastroVenda(itensVendaCarrinho.idproduto(), itensVendaCarrinho.quantidade(), dadosCadastroVendaCarrinho.dataVenda());
+
+            var produto = produtoRepository.findById(itensVendaCarrinho.idproduto()).orElseThrow(() -> new RuntimeException("produto não encontrado"));
+            validadorDeVendas.forEach(validadorDeVendas -> validadorDeVendas.validar(dadossimulados));
+            produto.estoque(itensVendaCarrinho.quantidade());
+            produtoRepository.save(produto);
+
+            var venda = new Venda(produto, itensVendaCarrinho.quantidade(), dadosCadastroVendaCarrinho.dataVenda());
+
+            vendaRepository.save(venda);
+
+            vendaList.add(venda);
+
+        }
+        var uri = uriComponentsBuilder.path("/vendas/carrinho").build().toUri();
+
+        return ResponseEntity.created(uri).body(vendaList.stream().map(DadosDetalhamentoVenda::new).toList());
+
+    }
 }

@@ -1,6 +1,7 @@
 package br.com.controledevendas.estoque.controller;
 
 import br.com.controledevendas.estoque.dto.DadosCadastroVenda;
+import br.com.controledevendas.estoque.dto.DadosCadastroVendaCarrinho;
 import br.com.controledevendas.estoque.dto.DadosListagemVendas;
 import br.com.controledevendas.estoque.dto.ListarProdutosVendidos;
 import br.com.controledevendas.estoque.service.VendaService;
@@ -30,6 +31,13 @@ public class VendaController {
     public ResponseEntity cadastrar(UriComponentsBuilder uriComponentsBuilder, @RequestBody @Valid DadosCadastroVenda dadosCadastroVenda) {
         return vendaService.cadastrar(uriComponentsBuilder,dadosCadastroVenda);
     }
+
+    @PostMapping("/carrinho")
+    @Transactional
+    public ResponseEntity cadastrarVendaCarrinho(UriComponentsBuilder uriComponentsBuilder, @RequestBody @Valid DadosCadastroVendaCarrinho dadosCadastroVendaCarrinho) {
+        return vendaService.cadastrarcarrinho(uriComponentsBuilder,dadosCadastroVendaCarrinho);
+    }
+
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemVendas>> listar(@PageableDefault(size = 10) Pageable pageable) {
