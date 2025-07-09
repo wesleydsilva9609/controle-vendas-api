@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class TratamentoDeErros {
 
 
+
+
+
     @ExceptionHandler(MethodNotFoundException.class)
     public ResponseEntity tratamentoDeErro404() {
         return ResponseEntity.notFound().build() ;

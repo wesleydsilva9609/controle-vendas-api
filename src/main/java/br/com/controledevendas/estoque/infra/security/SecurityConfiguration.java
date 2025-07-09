@@ -1,5 +1,7 @@
 package br.com.controledevendas.estoque.infra.security;
 
+import br.com.controledevendas.estoque.infra.exceptions.CustomAccessDeniedHandler;
+import br.com.controledevendas.estoque.infra.exceptions.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,12 @@ public class SecurityConfiguration {
     @Autowired
     private SecurityFilter securityFilter;
 
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
@@ -33,7 +41,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/produtos").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/produtos").hasRole("ADMIN")
                         .anyRequest().authenticated()
-                )
+                ).exceptionHandling(ex -> ex.authenticationEntryPoint(customAuthenticationEntryPoint)
+                        .accessDeniedHandler(customAccessDeniedHandler))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
