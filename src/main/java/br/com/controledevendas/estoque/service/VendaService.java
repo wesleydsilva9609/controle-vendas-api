@@ -101,7 +101,18 @@ public class VendaService {
     }
 
     public ResponseEntity deletarPorId(Long id) {
+        if(id == null || !vendaRepository.existsById(id.intValue())){
+
+            return ResponseEntity.notFound().build();
+        }
+        //busca o id da venda para poder atualizar o estoque
+        var venda = vendaRepository.getReferenceById(id.intValue());
+        var produto = venda.getProduto();
+        produto.devolucao(venda.getQuantidadeVendida());
+        //salve a quantidade devolvida ao estoque do produto e depois deleta
+        produtoRepository.save(produto);
         vendaRepository.deleteById(Math.toIntExact(id));
+
         return ResponseEntity.noContent().build();
     }
 }
