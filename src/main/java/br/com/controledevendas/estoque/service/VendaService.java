@@ -100,6 +100,27 @@ public class VendaService {
 
     }
 
+    public ResponseEntity atualizar(DadosVendaAtualizada dadosVendaAtualizada) {
+        if(dadosVendaAtualizada.id() == null || !vendaRepository.existsById(Math.toIntExact(dadosVendaAtualizada.id()))){
+            return ResponseEntity.notFound().build();
+        }
+
+        var venda = vendaRepository.getReferenceById(Math.toIntExact(dadosVendaAtualizada.id()));
+        //pega o produto e verifica a quantidade antiga com a quantidade nova para atualizar o estoque
+        var produto = venda.getProduto();
+        var quantidadeAntiga = venda.getQuantidadeVendida();
+        var quantidadeNova = dadosVendaAtualizada.quantidade();
+
+        produto.atualizarEstoqueEVenda(quantidadeAntiga, quantidadeNova);
+        venda.atualizar(dadosVendaAtualizada);
+
+        produtoRepository.save(produto);
+        vendaRepository.save(venda);
+
+
+        return ResponseEntity.ok().body(new DadosDetalhamentoVenda(venda));
+    }
+
     public ResponseEntity deletarPorId(Long id) {
         if(id == null || !vendaRepository.existsById(id.intValue())){
 
@@ -114,5 +135,14 @@ public class VendaService {
         vendaRepository.deleteById(Math.toIntExact(id));
 
         return ResponseEntity.noContent().build();
+    }
+
+
+    public ResponseEntity buscarVendaId(Long id) {
+        if(id == null || !vendaRepository.existsById(id.intValue())){
+            return ResponseEntity.notFound().build();
+        }
+        var venda = vendaRepository.getReferenceById(id.intValue());
+        return ResponseEntity.ok().body(new DadosDetalhamentoVenda(venda));
     }
 }

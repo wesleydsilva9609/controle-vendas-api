@@ -1,9 +1,6 @@
 package br.com.controledevendas.estoque.controller;
 
-import br.com.controledevendas.estoque.dto.vendas.DadosCadastroVenda;
-import br.com.controledevendas.estoque.dto.vendas.DadosCadastroVendaCarrinho;
-import br.com.controledevendas.estoque.dto.vendas.DadosListagemVendas;
-import br.com.controledevendas.estoque.dto.vendas.ListarProdutosVendidos;
+import br.com.controledevendas.estoque.dto.vendas.*;
 import br.com.controledevendas.estoque.service.VendaService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
@@ -42,6 +39,17 @@ public class VendaController {
     @GetMapping
     public ResponseEntity<Page<DadosListagemVendas>> listar(@PageableDefault(size = 10) Pageable pageable) {
         return vendaService.listarVendas(pageable);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity buscarVendaPorId(@PathVariable Long id){
+        return vendaService.buscarVendaId(id);
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizarVenda(@RequestBody @Valid DadosVendaAtualizada dadosVendaAtualizada) {
+        return vendaService.atualizar(dadosVendaAtualizada);
     }
 
     @DeleteMapping("/{id}")

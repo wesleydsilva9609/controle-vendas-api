@@ -28,8 +28,6 @@ public class Produto {
     private Integer quantidadeVendida;
 
 
-
-
     public Produto(DadosCadastroProduto dadosCadastroProduto) {
         this.nome = dadosCadastroProduto.nome();
         this.preco = dadosCadastroProduto.preco();
@@ -55,6 +53,11 @@ public class Produto {
         quantidadeVendida += quantidade;
     }
 
+    public void atualizarEstoqueEVenda(int quantidadeAntiga, int quantidadeNova) {
+        int diferenca = quantidadeNova - quantidadeAntiga;
+        this.quantidadeEstoque -= diferenca;
+        this.quantidadeVendida += diferenca;
+    }
 
     public void devolucao(Integer quantidadeVendida) {
         quantidadeEstoque += quantidadeVendida;
