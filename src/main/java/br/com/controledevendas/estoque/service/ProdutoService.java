@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,8 +25,9 @@ public class ProdutoService {
 
     public ResponseEntity cadastrar(UriComponentsBuilder uriComponentsBuilder, DadosCadastroProduto dadosCadastroProduto){
         var produto = new Produto(dadosCadastroProduto);
-        var uri = uriComponentsBuilder.path("/produto/{id}").buildAndExpand(produto.getId()).toUri();
         produtoRepository.save(produto);
+        var uri = uriComponentsBuilder.path("/produtos/{id}").buildAndExpand(produto.getId()).toUri();
+
         return ResponseEntity.created(uri).body(new DadosDetalhamentoProduto(produto));
     }
 

@@ -5,13 +5,16 @@ import br.com.controledevendas.estoque.entity.Venda;
 import br.com.controledevendas.estoque.entity.validacao.ValidadorDeVendas;
 import br.com.controledevendas.estoque.repository.ProdutoRepository;
 import br.com.controledevendas.estoque.repository.VendaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
@@ -28,21 +31,22 @@ public class VendaService {
     private List<ValidadorDeVendas> validadorDeVendas;
 
     public ResponseEntity cadastrar(UriComponentsBuilder uriComponentsBuilder, DadosCadastroVenda dadosCadastroVenda) {
-        var produto = produtoRepository.getReferenceById(dadosCadastroVenda.idproduto());
+        var produto = produtoRepository.findById(dadosCadastroVenda.idproduto())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
 
-        validadorDeVendas.forEach(validadorDeVendas -> validadorDeVendas.validar(dadosCadastroVenda));
+        // Validação de regras de negócio
+        validadorDeVendas.forEach(validador -> validador.validar(dadosCadastroVenda));
 
-        //atualiza o estoque e a quantidade do intem vendido
+        // Atualiza o estoque
         produto.estoque(dadosCadastroVenda.quantidade());
 
-        var venda = new Venda(produto, dadosCadastroVenda.quantidade(), dadosCadastroVenda.dataVenda());
+        // Cria venda
+        var venda = new Venda(dadosCadastroVenda, produto);
 
         vendaRepository.save(venda);
-        // Salva o produto com o novo estoque
-        produtoRepository.save(produto);
+        produtoRepository.save(produto); // salva o novo estoque
 
         var uri = uriComponentsBuilder.path("/vendas/{id}").buildAndExpand(venda.getId()).toUri();
-
         return ResponseEntity.created(uri).body(new DadosDetalhamentoVenda(venda));
     }
 
@@ -107,7 +111,8 @@ public class VendaService {
 
         var venda = vendaRepository.getReferenceById(Math.toIntExact(dadosVendaAtualizada.id()));
         //pega o produto e verifica a quantidade antiga com a quantidade nova para atualizar o estoque
-        var produto = venda.getProduto();
+        var produto = produtoRepository.findById((long) Math.toIntExact(dadosVendaAtualizada.idproduto()))
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
         var quantidadeAntiga = venda.getQuantidadeVendida();
         var quantidadeNova = dadosVendaAtualizada.quantidade();
 
@@ -116,6 +121,7 @@ public class VendaService {
 
         produtoRepository.save(produto);
         vendaRepository.save(venda);
+        venda.setProduto(produto);
 
 
         return ResponseEntity.ok().body(new DadosDetalhamentoVenda(venda));

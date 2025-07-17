@@ -3,10 +3,7 @@ package br.com.controledevendas.estoque.entity;
 import br.com.controledevendas.estoque.dto.vendas.DadosCadastroVenda;
 import br.com.controledevendas.estoque.dto.vendas.DadosVendaAtualizada;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
+@Setter
 public class Venda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +23,8 @@ public class Venda {
     private Integer quantidadeVendida;
     private LocalDate dataVenda;
 
-    public Venda(DadosCadastroVenda dadosCadastroVenda) {
-        this.produto = getProduto();
+    public Venda(DadosCadastroVenda dadosCadastroVenda,Produto produto) {
+        this.produto = produto;
         this.quantidadeVendida = dadosCadastroVenda.quantidade();
         this.dataVenda = dadosCadastroVenda.dataVenda();
     }

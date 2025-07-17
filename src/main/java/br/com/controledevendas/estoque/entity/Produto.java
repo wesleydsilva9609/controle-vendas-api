@@ -4,10 +4,7 @@ package br.com.controledevendas.estoque.entity;
 import br.com.controledevendas.estoque.dto.produto.DadosAtualizarProduto;
 import br.com.controledevendas.estoque.dto.produto.DadosCadastroProduto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,6 +12,7 @@ import java.math.RoundingMode;
 @Entity
 @Table(name = "produtos")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -36,6 +34,8 @@ public class Produto {
 
     }
 
+
+
     public void atualizar(DadosAtualizarProduto dadosAtualizarProdutoproduto) {
         if(dadosAtualizarProdutoproduto.nome() != null){
             this.nome = dadosAtualizarProdutoproduto.nome();
@@ -54,9 +54,17 @@ public class Produto {
     }
 
     public void atualizarEstoqueEVenda(int quantidadeAntiga, int quantidadeNova) {
-        int diferenca = quantidadeNova - quantidadeAntiga;
-        this.quantidadeEstoque -= diferenca;
-        this.quantidadeVendida += diferenca;
+        // Reverte a venda anterior
+        this.quantidadeEstoque += quantidadeAntiga;
+        this.quantidadeVendida -= quantidadeAntiga;
+
+        // Aplica a nova venda
+        this.quantidadeEstoque -= quantidadeNova;
+        this.quantidadeVendida += quantidadeNova;
+
+        // Proteção contra negativos
+        if (this.quantidadeVendida < 0) this.quantidadeVendida = 0;
+        if (this.quantidadeEstoque < 0) this.quantidadeEstoque = 0;
     }
 
     public void devolucao(Integer quantidadeVendida) {
