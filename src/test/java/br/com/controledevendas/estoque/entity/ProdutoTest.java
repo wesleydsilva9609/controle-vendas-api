@@ -1,6 +1,6 @@
 package br.com.controledevendas.estoque.entity;
 
-import org.checkerframework.checker.units.qual.A;
+import br.com.controledevendas.estoque.domain.model.Produto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

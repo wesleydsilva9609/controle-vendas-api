@@ -1,9 +1,9 @@
 package br.com.controledevendas.estoque.controller;
 
-import br.com.controledevendas.estoque.dto.produto.DadosAtualizarProduto;
-import br.com.controledevendas.estoque.dto.produto.DadosCadastroProduto;
-import br.com.controledevendas.estoque.entity.Produto;
-import br.com.controledevendas.estoque.repository.ProdutoRepository;
+import br.com.controledevendas.estoque.application.dto.produto.DadosAtualizarProduto;
+import br.com.controledevendas.estoque.application.dto.produto.DadosCadastroProduto;
+import br.com.controledevendas.estoque.domain.model.Produto;
+import br.com.controledevendas.estoque.domain.repository.ProdutoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,8 @@ class ProdutoControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void DeveriacadastrarProduto() throws Exception {
-        DadosCadastroProduto json = new DadosCadastroProduto("monitor",new BigDecimal(50.00),10);
-      String request =  objectMapper.writeValueAsString(json);
+        DadosCadastroProduto json = new DadosCadastroProduto("monitor",new BigDecimal(50.00),10); // cria um produto
+      String request =  objectMapper.writeValueAsString(json); //transforma em json
      var response =   mockMvc.perform(post("/produtos").contentType(MediaType.APPLICATION_JSON).content(request)).andReturn().getResponse();
 
      assertEquals(201, response.getStatus());
