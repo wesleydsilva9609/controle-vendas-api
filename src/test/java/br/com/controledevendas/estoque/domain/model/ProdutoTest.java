@@ -1,8 +1,11 @@
-package br.com.controledevendas.estoque.entity;
+package br.com.controledevendas.estoque.domain.model;
 
-import br.com.controledevendas.estoque.domain.model.Produto;
+import br.com.controledevendas.estoque.application.dto.produto.DadosAtualizarProduto;
+import br.com.controledevendas.estoque.application.dto.produto.DadosCadastroProduto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,4 +51,28 @@ class ProdutoTest {
         assertEquals(2, produto.getQuantidadeVendida()); // quantidade vendida apos devolução
 
     }
+
+    @Test
+    void deveriaCadatrarUmProduto() {
+       DadosCadastroProduto dados = new DadosCadastroProduto("monitor",new BigDecimal("200.00"),10);
+
+       Produto produto = new Produto(dados);
+
+        Assertions.assertEquals("monitor", produto.getNome());
+        Assertions.assertEquals(new BigDecimal("200.00"), produto.getPreco());
+        Assertions.assertEquals(10, produto.getQuantidadeEstoque());
+    }
+
+    @Test
+    void deveriaAtualizarUmProduto() {
+        Produto produto = new Produto(new DadosCadastroProduto("monitor",new BigDecimal("200.00"),10));
+        DadosAtualizarProduto atualizarProduto = new DadosAtualizarProduto(produto.getId(),"monitor HD",new BigDecimal("250.00"),10);
+
+        produto.atualizar(atualizarProduto);
+
+        Assertions.assertEquals("monitor HD", produto.getNome());
+        Assertions.assertEquals(new BigDecimal("250.00"), produto.getPreco());
+        Assertions.assertEquals(10, produto.getQuantidadeEstoque());
+    }
+
 }
