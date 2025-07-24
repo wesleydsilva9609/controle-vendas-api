@@ -32,8 +32,8 @@ public class ProdutoController {
         return produtoService.cadastrar(uriComponentsBuilder,dadosCadastroProduto);
     }
 
-    @GetMapping
-    @Operation(summary = "Lista todas os produtos", description = "Retorna uma lista de produtos")
+    @GetMapping("/todos")
+    @Operation(summary = "Lista todos os produtos", description = "Retorna uma lista de produtos")
     public ResponseEntity<Page<DadosListagemProduto>> listarProdutos(@PageableDefault(sort = "id", size = 5)Pageable pageable) {
         return produtoService.listar(pageable);
     }
