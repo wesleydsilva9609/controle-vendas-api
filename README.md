@@ -1,34 +1,97 @@
-# controle-vendas-api
-# 🚀 Controle de Vendas e Estoque API
+# 📦 Controle de Vendas API
 
-API REST desenvolvida em **Spring Boot** para gerenciar produtos, vendas e relatórios de estoque, com autenticação via **JWT** e documentação **Swagger**.
-
-> **Status:** Em desenvolvimento – Novas funcionalidades e testes unitários em breve!
+API RESTful para **gestão de vendas e estoque**, desenvolvida em **Java 17** com **Spring Boot**.  
+Permite o cadastro, atualização, listagem e exclusão de produtos e vendas, além de autenticação com JWT.
 
 ---
 
-## ✨ Funcionalidades
-
-- **CRUD de Produtos**
-- **Registro de Vendas** com atualização automática de estoque
-- **Busca de vendas por data (Ano/Mês)**
-- **Relatório detalhado de vendas**
-- **Autenticação JWT** com níveis de acesso:
-  - **Admin:** cadastrar, atualizar e deletar produtos
-  - **Usuário autenticado:** consultar vendas e relatórios
-- **Documentação interativa com Swagger** em `/swagger-ui.html`
+## 🚀 Funcionalidades
+- **Cadastro e gerenciamento de produtos**
+- **Registro de vendas** e controle automático de estoque
+- **Autenticação com JWT** (login e cadastro de usuários)
+- **Relatórios mensais de vendas**
+- **Documentação interativa com Swagger**
 
 ---
 
-## 🛠 Tecnologias
-
+## 🛠️ Tecnologias Utilizadas
 - **Java 17**
 - **Spring Boot 3**
 - **Spring Data JPA**
-- **Spring Security (JWT)**
 - **PostgreSQL**
-- **JUnit 5 + MockMvc**
+- **JWT para autenticação**
 - **Swagger/OpenAPI**
-- **Maven**
+- **JUnit e Mockito** (testes unitários)
 
 ---
+
+## 📸 Documentação da API
+
+### Swagger UI
+<img width="1920" height="1080" alt="imagem_2025-07-24_160601921" src="https://github.com/user-attachments/assets/2c2f8b47-e6a9-4fad-b467-66f7555454b2" />
+<img width="1920" height="1080" alt="imagem_2025-07-24_161231011" src="https://github.com/user-attachments/assets/6cb90ecd-c166-430d-b433-a6812e27a408" />
+
+
+
+> **Dica**: Para acessar, rode o projeto e vá até `http://localhost:8080/swagger-ui/index.html`
+
+---
+
+## 📂 Como Rodar o Projeto
+
+### Pré-requisitos
+- Java 17+
+- Maven 3.8+
+- PostgreSQL
+
+### Passos
+```bash
+# Clonar repositório
+git clone https://github.com/seu-usuario/controle-vendas-api.git
+
+# Entrar na pasta
+cd controle-vendas-api
+
+# Configurar variáveis de ambiente (.env ou application.properties)
+DB_URL=jdbc:postgresql://localhost:5432/controle_vendas
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+
+# Rodar o projeto
+./mvnw spring-boot:run
+
+---
+```
+
+## 🧪 Testes
+Rodar os testes unitários:
+```
+bash
+Copiar
+Editar
+./mvnw test
+```
+
+## 🔑 Autenticação
+A API utiliza JWT. Primeiro faça login:
+```
+POST /login
+{
+  "usuario": "admin",
+  "senha": "123456"
+}
+```
+Depois use o token nos endpoints protegidos.
+
+## 👨‍💻 Autor
+Wesley Silva
+
+<h2>  📫 Contato </h2>
+<p 
+  <a href="mailto:wesleydsilva96@gmail.com" target="_blank">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
+  <a href="https://www.linkedin.com/in/wesley-silva-01a134346/" target="_blank">
+    <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+</p>
