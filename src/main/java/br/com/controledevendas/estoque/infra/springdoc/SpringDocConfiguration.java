@@ -21,6 +21,6 @@ public class SpringDocConfiguration {
                                         .type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
                 .info(new Info().title("Controle De Vendas Api").version("1.0")
                         .description("API de Controle de Vendas com Estoque")
-                        .contact(new Contact().name("wesley").email("wesleydsilva96@gmail.com")).license(new License().name("apache 2.0")));
+                        .contact(new Contact().name("Wesley").email("wesleydsilva96@gmail.com")).license(new License().name("apache 2.0")));
     }
 }
