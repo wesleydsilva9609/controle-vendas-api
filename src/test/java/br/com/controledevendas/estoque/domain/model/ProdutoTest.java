@@ -75,4 +75,6 @@ class ProdutoTest {
         Assertions.assertEquals(10, produto.getQuantidadeEstoque());
     }
 
+
+
 }

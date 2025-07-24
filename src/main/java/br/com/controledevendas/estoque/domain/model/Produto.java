@@ -68,7 +68,7 @@ public class Produto {
     }
 
     public void devolucao(Integer quantidadeVendida) {
-        quantidadeEstoque += quantidadeVendida;
+        this.quantidadeEstoque += quantidadeVendida;
         this.quantidadeVendida -= quantidadeVendida;
     }
 }
