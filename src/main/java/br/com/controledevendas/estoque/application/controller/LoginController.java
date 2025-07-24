@@ -29,7 +29,7 @@ public class LoginController {
 
     @PostMapping("/cadastro")
     @Transactional
-    @Operation(summary = "Cadastra um novo usuario", description = "Apena um ADMIN consegue cadastrar novos usuarios")
+    @Operation(summary = "Cadastra um novo usuario", description = "Apenas um ADMIN consegue cadastrar novos usuarios")
     public ResponseEntity cadastrarUsuario(UriComponentsBuilder uriComponentsBuilder, @RequestBody @Valid DadosCadastroUsuario dadosCadastroUsuario) {
         return usuarioService.cadastro(uriComponentsBuilder,dadosCadastroUsuario);
     }
